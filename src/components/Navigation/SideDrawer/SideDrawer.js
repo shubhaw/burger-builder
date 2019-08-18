@@ -6,9 +6,11 @@ import NavigationItems from '../NavigationItems/NavigationItems';
 const SideDrawer = (props) => {
     return (
         <div className={styleClasses.SideDrawer}>
-            <Logo />
+            <div className={styleClasses.Logo}>
+                <Logo />
+            </div>
             <nav>
-                <NavigationItems/>
+                <NavigationItems />
             </nav>
         </div>
     );
