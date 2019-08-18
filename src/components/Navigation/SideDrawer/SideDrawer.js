@@ -6,7 +6,6 @@ import Aux from '../../../hoc/Auxiliary';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 
 const SideDrawer = (props) => {
-    console.log(props.show)
     return (
         <Aux>
             <Backdrop show={props.show} click={props.onClosed} />
