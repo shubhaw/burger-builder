@@ -6,3 +6,18 @@
     margin: 10px auto;
     box-sizing: border-box;
 }
+
+.Span {
+    text-transform: capitalize;
+    display: inline-block;
+    margin: 4px 4px;
+    border: 1px dotted #ccc;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+@media (max-width: 500px) {
+    .Order {
+        width: 95%;
+    }
+}

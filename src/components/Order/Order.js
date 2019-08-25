@@ -13,14 +13,7 @@ const Order = (props) => {
 
     const ingredientsOutput = ingredients.map(ingredient => {
         return (
-            <span style={{
-                textTransform: 'capitalize',
-                display: 'inline-block',
-                margin: '4px 4px',
-                border: '1px solid #ccc',
-                padding: '2px 5px',
-                borderRadius: '4px'
-            }} key={ingredient.name}>
+            <span className={styleClasses.Span} key={ingredient.name}>
                 {ingredient.name} ({ingredient.amount})
             </span>
             );
