@@ -19,20 +19,27 @@ class Checkout extends Component {
         this.props.history.replace('/checkout/contact-details')
     }
 
-    // componentDidMount() {
-    //     console.log(this.props);
-    //     const query = new URLSearchParams(this.props.location.search);
-    //     console.log('query.get("ingredients") :', query.get('ingredients').toString());
-        
-    // }
+    componentDidMount() {
+        console.log(this.props);
+        const query = new URLSearchParams(this.props.location.search);
+
+        const ingredients = {};
+        for (let param of query.entries()) {
+            ingredients[param[0]] = +param[1];
+        }
+
+        console.log('ingredients :', ingredients);
+        this.setState({ ingredients: ingredients });
+
+    }
     render() {
         return (
             <div>
-                <CheckoutSummary 
+                <CheckoutSummary
                     ingredients={this.state.ingredients}
-                    onCheckoutCancel = {this.checkoutCancelHandler}
+                    onCheckoutCancel={this.checkoutCancelHandler}
                     onCheckoutContinue={this.checkoutContinueHandler}
-                    />
+                />
             </div>
         );
     }
