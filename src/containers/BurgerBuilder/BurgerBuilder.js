@@ -91,6 +91,8 @@ class BurgerBuilder extends Component {
         // alert('Purchase will be continued in next section of the course!');
         this.setState({ isLoading: true });
 
+        this.props.history.push('/checkout');
+
         const order = {
             ingredients: this.state.ingredients,
             price: this.state.totalPrice,
@@ -108,13 +110,13 @@ class BurgerBuilder extends Component {
             deliveryMethod: 'fastest'
         }
 
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({ isLoading: false, isPurchasing: false });
-            })
-            .catch(error => {
-                this.setState({ isLoading: false, isPurchasing: false });
-            });
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         this.setState({ isLoading: false, isPurchasing: false });
+        //     })
+        //     .catch(error => {
+        //         this.setState({ isLoading: false, isPurchasing: false });
+        //     });
     }
 
     render() {
