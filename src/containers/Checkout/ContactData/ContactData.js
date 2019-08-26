@@ -71,10 +71,12 @@ class ContactData extends Component {
                         { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
-                value: ''
+                value: '',
+                isValid: true
             }
         },
-        isLoading: false
+        isLoading: false,
+        isFormValid: false
     }
 
     checkValidity(value, rules) {
@@ -138,13 +140,22 @@ class ContactData extends Component {
             updatedFormElement.isValid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
             updatedFormElement.isTouched = true;
         }
-        
-        console.log(updatedFormElement);
-
         updatedForm[inputIdentifier] = updatedFormElement;
+        // console.log(updatedFormElement);
+
+        let isFormValid = true;
+        for(let inputName in updatedForm) {
+            isFormValid = updatedForm[inputName].isValid && isFormValid;
+            console.log(inputName, ': ', updatedForm[inputName].isValid);
+            
+        }
+
+        console.log(isFormValid);
+        
 
         this.setState( {
-            orderForm: updatedForm
+            orderForm: updatedForm,
+            isFormValid: isFormValid
         })
 
     }
@@ -175,7 +186,7 @@ class ContactData extends Component {
                         />
                     ))
                 }
-                <Button buttonType="Success">ORDER</Button>
+                <Button buttonType="Success" disabled={!this.state.isFormValid}>ORDER</Button>
             </form>);
         if (this.state.isLoading) {
             form = <Spinner />
