@@ -19,10 +19,16 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
+    border-radius: 5px;
 }
 
 .InputElement:focus {
     outline: none;
     border: 1px solid sienna;
     background-color: #ffeee6;
+}
+
+.Invalid {
+    border: 2px solid #cc0000;
+    background-color: #ff9999;
 }

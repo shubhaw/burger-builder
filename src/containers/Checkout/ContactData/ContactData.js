@@ -129,7 +129,11 @@ class ContactData extends Component {
         };
 
         updatedFormElement.value = event.target.value;
-        updatedFormElement.isValid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        
+        if(updatedFormElement.validation) {
+            updatedFormElement.isValid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        }
+        
         console.log(updatedFormElement);
 
         updatedForm[inputIdentifier] = updatedFormElement;
@@ -160,6 +164,8 @@ class ContactData extends Component {
                             elementConfig={formElement.config.elementConfig}
                             value={formElement.config.value}
                             onChange={(event) => this.inputChangeHandler(event, formElement.id)}
+                            isValidationRequired = {formElement.config.validation}
+                            valid={formElement.config.isValid}
                         />
                     ))
                 }
