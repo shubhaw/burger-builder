@@ -56,26 +56,20 @@ class ContactData extends Component {
     }
 
     orderHandler = (event) => {
+        console.log('OrderHandler Called!!!');
+        
         event.preventDefault();
-        console.log('Ingredients:', this.props.ingredients);
-        console.log('price :', this.props.price);
-
+        
         this.setState({ isLoading: true });
+        let orderDetails = {};
+        for(let formElementName in this.state.orderForm) {
+            orderDetails[formElementName] = this.state.orderForm[formElementName].value;
+        }
+
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
-            customer: {
-                name: 'Shubhaw',
-                address: {
-                    houseNo: 'G6',
-                    buildingName: 'Pearl Celestial',
-                    area: 'Kokapet',
-                    city: 'Hyderabad',
-                    pincode: '500075'
-                },
-                email: 'shubhawkumar@gmail.com'
-            },
-            deliveryMethod: 'fastest'
+            orderDetails: orderDetails
         }
 
         axios.post('/orders.json', order)
@@ -119,7 +113,7 @@ class ContactData extends Component {
         }
 
         let form = (
-            <form>
+            <form onSubmit={this.orderHandler}>
                 {
                     formElementsArray.map(formElement => (
                         <Input
@@ -131,7 +125,7 @@ class ContactData extends Component {
                         />
                     ))
                 }
-                <Button buttonType="Success" onClick={this.orderHandler}>ORDER</Button>
+                <Button buttonType="Success">ORDER</Button>
             </form>);
         if (this.state.isLoading) {
             form = <Spinner />
