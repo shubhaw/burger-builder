@@ -3,11 +3,13 @@ import styleClasses from './Button.module.css';
 
 const button = (props) => {
     return (
-        <div 
+        <button
             className={[styleClasses.Button, styleClasses[props.buttonType]].join(' ')}
-            onClick={props.onClick}>
+            onClick={props.onClick}
+            disabled={props.disabled}
+        >
             {props.children}
-        </div>
+        </button>
     );
 };
 
