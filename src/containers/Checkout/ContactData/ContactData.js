@@ -19,7 +19,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             email: {
                 elementType: 'input',
@@ -31,7 +32,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             street: {
                 elementType: 'input',
@@ -43,7 +45,8 @@ class ContactData extends Component {
                 validation: {
                     required: true
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             postalCode: {
                 elementType: 'input',
@@ -57,7 +60,8 @@ class ContactData extends Component {
                     minLength: 6,
                     maxLength: 6
                 },
-                isValid: false
+                isValid: false,
+                isTouched: false
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -132,6 +136,7 @@ class ContactData extends Component {
         
         if(updatedFormElement.validation) {
             updatedFormElement.isValid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+            updatedFormElement.isTouched = true;
         }
         
         console.log(updatedFormElement);
@@ -166,6 +171,7 @@ class ContactData extends Component {
                             onChange={(event) => this.inputChangeHandler(event, formElement.id)}
                             isValidationRequired = {formElement.config.validation}
                             valid={formElement.config.isValid}
+                            touched={formElement.config.isTouched}
                         />
                     ))
                 }
