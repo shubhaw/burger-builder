@@ -6,14 +6,14 @@ const Input = (props) => {
 
     switch (props.elementType) {
         case ('input'):
-            inputElement = <input className={styleClasses.InputElement} {...props.elementConfig} defaultValue={props.value} />
+            inputElement = <input className={styleClasses.InputElement} {...props.elementConfig} defaultValue={props.value} onChange={props.onChange} />
             break;
         case ('textarea'):
-            inputElement = <textarea className={styleClasses.InputElement} {...props.elementConfig} defaultValue={props.value} />
+            inputElement = <textarea className={styleClasses.InputElement} {...props.elementConfig} defaultValue={props.value} onChange={props.onChange} />
             break;
         case ('select'):
             inputElement = (
-                <select className={styleClasses.InputElement}>
+                <select className={styleClasses.InputElement} onChange={props.onChange}>
                     {
                         props.elementConfig.options.map(option => (
                             <option key={option.value} value={option.value}>{option.displayValue}</option>
@@ -23,7 +23,7 @@ const Input = (props) => {
             );
             break;
         default:
-            inputElement = <input className={styleClasses.InputElement} {...props.elementConfig} defaultValue={props.value} />
+            inputElement = <input className={styleClasses.InputElement} {...props.elementConfig} defaultValue={props.value} onChange={props.onChange} />
             break;
     }
     return (
