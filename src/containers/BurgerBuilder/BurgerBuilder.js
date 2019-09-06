@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actionTypes from '../../store/actions';
+import * as actionTypes from '../../store/actions/actionTypes';
 
 import Burger from '../../components/Burger/Burger';
 import Modal from "../../components/UI/Modal/Modal";
