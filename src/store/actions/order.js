@@ -1,4 +1,8 @@
-import { UPDATE_BURGER_PURCHASE_SUCCESS, UPDATE_BURGER_PURCHASE_FAILURE, START_BURGER_PURCHASE, INIT_PURCHASE } from './actionTypes';
+import {
+    UPDATE_BURGER_PURCHASE_SUCCESS, UPDATE_BURGER_PURCHASE_FAILURE, START_BURGER_PURCHASE,
+    INIT_PURCHASE,
+    START_ORDERS_FETCH, FETCH_ORDERS_SUCCESS, FETCH_ORDERS_FAILURE
+} from './actionTypes';
 import axios from '../../axios-orders';
 
 export const updateBurgerPurchaseSuccess = (orderId, orderData) => {
@@ -38,5 +42,43 @@ export const purchaseBurger = orderDetails => {
 export const initPurchase = () => {
     return {
         type: INIT_PURCHASE
+    }
+}
+
+export const startOrdersFetch = () => {
+    return {
+        type: START_ORDERS_FETCH
+    }
+}
+
+export const fetchOrdersSuccess = (orders) => {
+    return {
+        type: FETCH_ORDERS_SUCCESS,
+        orders: orders
+    }
+}
+
+export const fetchOrdersFailure = (error) => {
+    return {
+        type: FETCH_ORDERS_FAILURE,
+        error: error
+    }
+}
+
+export const fetchOrders = () => {
+    return dispatch => {
+        dispatch(startOrdersFetch());
+        axios.get('/orders.json')
+            .then( response => {
+                const fetchedOrders = [];
+                for (let key in response.data) {
+                    fetchedOrders.push({
+                        ...response.data[key],
+                        id: key
+                    });
+                }
+                return dispatch(fetchOrdersSuccess(fetchedOrders));
+            })
+            .catch(error => dispatch(fetchOrdersFailure(error)));
     }
 }

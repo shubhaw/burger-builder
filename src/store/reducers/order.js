@@ -1,4 +1,8 @@
-import { UPDATE_BURGER_PURCHASE_SUCCESS, UPDATE_BURGER_PURCHASE_FAILURE, START_BURGER_PURCHASE, INIT_PURCHASE } from '../actions/actionTypes';
+import {
+    UPDATE_BURGER_PURCHASE_SUCCESS, UPDATE_BURGER_PURCHASE_FAILURE, START_BURGER_PURCHASE,
+    INIT_PURCHASE,
+    START_ORDERS_FETCH, FETCH_ORDERS_SUCCESS, FETCH_ORDERS_FAILURE
+} from '../actions/actionTypes';
 
 const initialState = {
     orders: [],
@@ -34,6 +38,22 @@ const reducer = (state = initialState, actions) => {
                 ...state,
                 isLoading: false
             };
+        case START_ORDERS_FETCH:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case FETCH_ORDERS_SUCCESS:
+            return {
+                ...state,
+                orders: actions.orders,
+                isLoading: false
+            };
+        case FETCH_ORDERS_FAILURE:
+            return {
+                ...state,
+                isLoading: false
+            }
         default:
             return state;
     }
