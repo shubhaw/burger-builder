@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import ContactData from './ContactData/ContactData';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 
@@ -43,29 +43,36 @@ class Checkout extends Component {
     // }
 
     render() {
-        return (
-            <div>
-                <CheckoutSummary
-                    ingredients={this.props.ingredients}
-                    onCheckoutCancel={this.checkoutCancelHandler}
-                    onCheckoutContinue={this.checkoutContinueHandler}
-                />
-                <Route
-                    path={this.props.match.path + '/contact-data'}
-                    component={ContactData}
+        let summary = <Redirect to="/" />
+        if (this.props.ingredients) {
+            const currentPurchaseState = this.props.isPurchased ? <Redirect to="/" /> : null;
+            summary = (
+                <div>
+                    {currentPurchaseState}
+                    <CheckoutSummary
+                        ingredients={this.props.ingredients}
+                        onCheckoutCancel={this.checkoutCancelHandler}
+                        onCheckoutContinue={this.checkoutContinueHandler}
+                    />
+                    <Route
+                        path={this.props.match.path + '/contact-data'}
+                        component={ContactData}
                     // render={() => (
                     //     <ContactData ingredients={this.props.ingredients} price={this.props.totalPrice} {...this.props} />
                     // )}
-                />
-            </div>
-        );
+                    />
+                </div>
+            )
+        }
+        return summary;
     }
 }
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        price: state.totalPrice
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        isPurchased: state.order.isPurchased
     };
 }
 

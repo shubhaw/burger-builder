@@ -1,13 +1,15 @@
-import * as actionTypes from './actions';
+import {
+    ADD_INGREDIENT,
+    REMOVE_INGREDIENT,
+    SET_INGREDIENTS,
+    SET_INGREDIENTS_FETCH_FAILED,
+    SET_PRICE  
+  } from '../actions/actionTypes';
 
 const initialState = {
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
-    totalPrice: 4.0
+    ingredients: null,
+    totalPrice: 4.0,
+    isError: false
 };
 
 const INGREDIENT_PRICES = {
@@ -20,7 +22,7 @@ const INGREDIENT_PRICES = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADD_INGREDIENT:
+        case ADD_INGREDIENT:
             return {
                 ...state,
                 ingredients: {
@@ -29,7 +31,7 @@ const reducer = (state = initialState, action) => {
                 },
                 totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
             };
-        case actionTypes.REMOVE_INGREDIENT:
+        case REMOVE_INGREDIENT:
             return {
                 ...state,
                 ingredients: {
@@ -38,6 +40,27 @@ const reducer = (state = initialState, action) => {
                 },
                 totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
             };
+        case SET_INGREDIENTS:
+            return {
+                ...state,
+                ingredients: {
+                    salad: action.ingredients.salad,
+                    bacon: action.ingredients.bacon,
+                    cheese: action.ingredients.cheese,
+                    meat: action.ingredients.meat,
+                },
+                isError: false
+            };
+        case SET_INGREDIENTS_FETCH_FAILED:
+            return {
+                ...state,
+                isError: true
+            }
+        case SET_PRICE:
+            return {
+                ...state,
+                totalPrice: action.price
+            }
         default:
             return state;
     }
