@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addIngredient, removeIngredient, initIngredients } from '../../store/actions/index';
+import { addIngredient, removeIngredient, initIngredients, initPurchase } from '../../store/actions/index';
 
 import Burger from '../../components/Burger/Burger';
 import Modal from "../../components/UI/Modal/Modal";
@@ -92,7 +92,8 @@ class BurgerBuilder extends Component {
         // queryParams.push('price=' + this.state.totalPrice);
 
         // const queryString = queryParams.join('&');
-
+        
+        this.props.initPurchasing();
         this.props.history.push({
             pathname: '/checkout' //,
             // search: '?' + queryString
@@ -146,9 +147,9 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
     return {
-        ingredients: state.ingredients,
-        price: state.totalPrice,
-        isError: state.isError
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        isError: state.burgerBuilder.isError
     }
 };
 
@@ -156,7 +157,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ingName) => dispatch(addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(removeIngredient(ingName)),
-        initIngredients: () => dispatch(initIngredients())
+        initIngredients: () => dispatch(initIngredients()),
+        initPurchasing: () => dispatch(initPurchase())
     }
 }
 
